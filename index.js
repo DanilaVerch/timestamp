@@ -1,29 +1,25 @@
-// index.js
-// where your node app starts
-
-// init project
 const express = require('express');
 const app = express();
 
-// enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
+// Enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
-var cors = require('cors');
+const cors = require('cors');
 app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 
-// http://expressjs.com/en/starter/static-files.html
+// Endpoint to serve static files
 app.use(express.static('public'));
 
-// http://expressjs.com/en/starter/basic-routing.html
+// Homepage route
 app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-
-// your first API endpoint... 
+// Hello API endpoint
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+// Timestamp API endpoint
 app.get('/api/:date?', (req, res) => {
   let inputDate = req.params.date;
 
@@ -45,8 +41,8 @@ app.get('/api/:date?', (req, res) => {
   }
 });
 
-
-// Listen on port set in environment variable or default to 3000
-var listener = app.listen(process.env.PORT || 3000, function () {
+// Listen on the specified port or default to 3000
+const PORT = process.env.PORT || 3000;
+const listener = app.listen(PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
